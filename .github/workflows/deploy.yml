@@ -27,12 +27,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Pages must be switched on once by the repo owner (the workflow's token is not allowed to
+      # do it): fail with a clear message instead of GitHub's "Resource not accessible by integration".
+      - name: Check GitHub Pages is on
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api "repos/${{ github.repository }}/pages" >/dev/null 2>&1; then
+            echo "::error title=GitHub Pages is off::Turn it on once: Settings > Pages > Source: GitHub Actions — then re-run this workflow (Actions > Deploy > Re-run). / Activez-le une fois : Settings > Pages > Source : GitHub Actions, puis relancez ce déploiement."
+            exit 1
+          fi
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Enable Pages (build type "workflow") if it isn't already, so the very
-          # first deploy doesn't fail with "Get Pages site failed".
-          enablement: true
 
       # The template itself publishes no game: its address only forwards to the Ludea site.
       # A game created from the template is not a template repo, so it publishes the game.
