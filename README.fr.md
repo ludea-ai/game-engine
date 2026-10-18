@@ -70,9 +70,10 @@ Votre jeu et le moteur s'améliorent l'un l'autre :
   [ludea-ai/game-engine](https://github.com/ludea-ai/game-engine/issues), avec la modification
   exacte jointe. Ludea l'étudie, l'ajoute au moteur, et tous les jeux en profitent à la mise à
   jour suivante.
-- **`/ludea-feedback`** : vos propres idées pour le moteur (« ce serait bien si le moteur
+- **`/update`** : quand Ludea sort une version plus récente du moteur, votre session vous dit ce qu'elle apporte (corrections, et nouvelles possibilités pour votre jeu) ; vous dites oui et le jeu est mis à jour, testé et remis en ligne.
+- **`/idea`** : vos propres idées pour le moteur (« ce serait bien si le moteur
   pouvait… »).
-- **`/ludea-publish`** : demander que votre jeu apparaisse sur **[ludea.ai](https://ludea.ai/fr/)**.
+- **`/publish`** : demander que votre jeu apparaisse sur **[ludea.ai](https://ludea.ai/fr/)** — ou envoyer une mise à jour d'un jeu déjà publié.
   L'agent vérifie que le jeu est prêt (âge, description, français + anglais, icône, aucune
   erreur) et sans danger pour les enfants (ni pistage, ni publicité, ni lien extérieur, ni
   collecte de données), puis envoie la demande. Ludea relit la version exacte envoyée — la

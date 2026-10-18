@@ -90,8 +90,9 @@ Your game and the engine improve each other:
   skill sends it to Ludea as an issue on [ludea-ai/game-engine](https://github.com/ludea-ai/game-engine/issues),
   with the exact change attached. Ludea reviews it, adds it to the engine, and every game gets it
   at the next update (`sync-engine` from `https://github.com/ludea-ai/game-engine.git`).
-- **`/ludea-feedback`**: your own ideas for the engine ("it would be great if the engine could…").
-- **`/ludea-publish`**: ask for your game to appear on **[ludea.ai](https://ludea.ai/)**. It checks your
+- **`/update`**: when Ludea releases a newer engine, your session tells you what it brings (fixes, and new capabilities your game could use); say yes and your game is updated, tested and put back online.
+- **`/idea`**: your own ideas for the engine ("it would be great if the engine could…").
+- **`/publish`**: ask for your game to appear on **[ludea.ai](https://ludea.ai/)** — or send an update of a game already published there. It checks your
   game is ready (age, description, French + English, icon, no errors) and safe for children (no
   tracker, ad, external link or data collection), then sends a request. Ludea reviews it — child
   safety first — and, once accepted, publishes a copy of the reviewed version at `https://ludea.ai/<your-game>/`.
@@ -110,7 +111,7 @@ you want.
 | --- | --- |
 | **new-game** | Scaffold a brand-new game (interactive; starts minimal). |
 | **feedback-session** | Non-technical “playtester” mode — changes from plain-language feedback. |
-| report-upstream · ludea-feedback · ludea-publish | Tell Ludea (bugs, improvements, ideas) and ask to join the catalogue. |
+| report-upstream · idea · publish · update | Tell Ludea (bugs, improvements, ideas), join or update the catalogue, get the latest engine. |
 | add-character · add-creature-variant · add-decor-item · add-collision · place-scatter | Add the matching piece of content. |
 | asset-search · asset-add | Find (with content + license checks) and integrate art. |
 | state-migration | Add a saved field without breaking existing saves. |
