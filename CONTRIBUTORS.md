@@ -1,15 +1,19 @@
 # Ludea contributors
 
-The people behind "Copyright (c) Ludea contributors" in the [LICENSE](LICENSE). Anyone whose work
-is merged into the Ludea engine or whose game is published in the [Ludea catalogue](https://ludea.ai/)
-is added here (by the Ludea agents, with the name or pseudonym they chose to be credited with).
+The people behind "Copyright (c) Ludea contributors" in the [LICENSE](LICENSE). Everything made by
+Ludea is credited to **Ludea**; games and engine improvements brought by other creators are credited
+to them, with the name or pseudonym they chose when publishing (`/publish`).
 
-## Ludea
-- **[Ludea](https://ludea.ai/)** ([@ludea-ai](https://github.com/ludea-ai)) — the engine, the template,
-  the showcase Nebula Nursery, Dr Smile, GTA 7 · Neon City, Mon Centre Équestre
+## Engine and template
+- **Ludea**
 
-## Engine contributions
-*(people whose improvements were merged into the engine)*
+### Engine contributions from creators
+*(added when a creator's improvement is merged into the engine)*
 
-## Games in the catalogue
-*(games made by other creators, added when they are published)*
+## Games
+| Game | By |
+| --- | --- |
+| [Nebula Nursery](https://ludea.ai/nebula/) (the showcase) | Ludea |
+| [Dr Smile](https://ludea.ai/dr-smile/) | Ludea |
+| [GTA 7 · Neon City](https://ludea.ai/gta7/) | Ludea |
+| [Mon Centre Équestre](https://ludea.ai/my-little-stable/) | Ludea |
