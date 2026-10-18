@@ -87,3 +87,22 @@ un lien déjà rempli : un clic sur **Submit** et c'est envoyé.
 
 Pour les détails techniques (structure de `game.config.js`, test local, déploiement, liste des
 skills), voir la [version anglaise](README.md) et **[ENGINE.md](ENGINE.md)**.
+
+---
+
+## Licence et données
+
+Le moteur Ludea et ce modèle sont sous **[licence MIT](LICENSE)**. Un jeu créé à partir du modèle
+appartient à son créateur : la partie moteur reste sous MIT (gardez le fichier `LICENSE`), et vous
+choisissez la licence de votre propre contenu (histoire, dessins, textes).
+
+**Ce que votre jeu envoie à Ludea.** Le skill **report-upstream** signale à Ludea les problèmes du
+moteur et les améliorations du moteur faites dans votre jeu, sous forme de signalements **publics** sur
+`ludea-ai/game-engine` : des descriptions générales et du code du moteur uniquement, jamais de données
+personnelles, de prénoms d'enfants ni vos messages privés. Pour le désactiver, dites à votre session
+« ne signale rien à Ludea » (elle le note dans votre `CLAUDE.md`).
+
+**Publication au catalogue.** `/publish` vous demande votre accord explicite : vous autorisez Ludea à
+héberger, montrer et mettre à jour une copie relue de votre jeu sur ludea.ai, avec votre nom, et vous
+pouvez en demander le retrait à tout moment. Votre dépôt reste le vôtre.
+

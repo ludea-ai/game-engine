@@ -239,3 +239,21 @@ assets/ (img · sheet · ui · CREDITS.md) · vendor/phaser.min.js
 
 The starter's textures and icons are **generated** (CC0, `tools/art/starter.cjs`).
 Phaser 3 is MIT. See [`assets/CREDITS.md`](assets/CREDITS.md).
+
+---
+
+## License
+
+The Ludea engine and this template are under the **[MIT License](LICENSE)**. A game made from the
+template belongs to its creator: the engine part stays MIT (keep the `LICENSE` notice), and you
+choose how to license your own game content (story, art, texts).
+
+**What your game sends to Ludea.** The **report-upstream** skill reports engine problems and engine
+improvements made in your game as **public** issues on `ludea-ai/game-engine` — generic
+descriptions and engine code only, never personal data, children's names or your private messages.
+To turn it off, tell your session "don't report to Ludea" (it notes it in your `CLAUDE.md`).
+
+**Publishing in the catalogue.** `/publish` asks for your explicit consent: you allow Ludea to host,
+show and update a reviewed copy of your game on ludea.ai, credited to you, and you can ask for its
+removal at any time. Your repository stays yours.
+
