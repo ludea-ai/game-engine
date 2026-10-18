@@ -1,5 +1,7 @@
 # Ludea — Game Engine
 
+*[Version française](README.fr.md)*
+
 A **template repository** for building small top-down 2D games (Phaser 3, 100% static,
 no build). The engine is generic: you don't code a game, you **describe** it in one
 config file (`game.config.js`) + assets — or just run the **`/new-game`** skill and
@@ -30,7 +32,8 @@ engine stays clean and you can make as many games as you like.
 2. **Open it in Claude Code, on the `main` branch** (see the warning below).
 3. **Run `/new-game`.** It interviews you — **theme, target age/audience, art style,
    language, core loop** — then writes your `game.config.js`, creates/sources the assets,
-   themes the look, tests it, and can deploy. It **never edits `engine.js`**.
+   themes the look, tests it, and can deploy. It only touches the engine for a generic,
+   switchable feature your game truly needs — and then reports it to Ludea.
 4. **Turn on GitHub Pages:** in your repo, **Settings → Pages → Source → “GitHub
    Actions”**. Your game goes live at `https://<you>.github.io/<repo>/` (or under your own
    domain if your account's Pages site has one), and every later push to `main` redeploys
@@ -107,6 +110,7 @@ you want.
 | --- | --- |
 | **new-game** | Scaffold a brand-new game (interactive; starts minimal). |
 | **feedback-session** | Non-technical “playtester” mode — changes from plain-language feedback. |
+| report-upstream · ludea-feedback · ludea-publish | Tell Ludea (bugs, improvements, ideas) and ask to join the catalogue. |
 | add-character · add-creature-variant · add-decor-item · add-collision · place-scatter | Add the matching piece of content. |
 | asset-search · asset-add | Find (with content + license checks) and integrate art. |
 | state-migration | Add a saved field without breaking existing saves. |
