@@ -247,6 +247,9 @@ Phaser 3 is MIT. See [`assets/CREDITS.md`](assets/CREDITS.md).
 The Ludea engine and this template are under the **[MIT License](LICENSE)**. A game made from the
 template belongs to its creator: the engine part stays MIT (keep the `LICENSE` notice), and you
 choose how to license your own game content (story, art, texts).
+The people credited as "Ludea contributors" are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md): anyone
+whose game is published in the catalogue, or whose improvement is merged into the engine, is added.
+
 
 **What your game sends to Ludea.** The **report-upstream** skill reports engine problems and engine
 improvements made in your game as **public** issues on `ludea-ai/game-engine` — generic

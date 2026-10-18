@@ -95,6 +95,9 @@ skills), voir la [version anglaise](README.md) et **[ENGINE.md](ENGINE.md)**.
 Le moteur Ludea et ce modèle sont sous **[licence MIT](LICENSE)**. Un jeu créé à partir du modèle
 appartient à son créateur : la partie moteur reste sous MIT (gardez le fichier `LICENSE`), et vous
 choisissez la licence de votre propre contenu (histoire, dessins, textes).
+Les « contributeurs de Ludea » sont listés dans [CONTRIBUTORS.md](CONTRIBUTORS.md) : toute personne
+dont le jeu est publié au catalogue, ou dont une amélioration entre dans le moteur, y est ajoutée.
+
 
 **Ce que votre jeu envoie à Ludea.** Le skill **report-upstream** signale à Ludea les problèmes du
 moteur et les améliorations du moteur faites dans votre jeu, sous forme de signalements **publics** sur
