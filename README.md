@@ -77,6 +77,25 @@ Nothing here ships in the starter on purpose — you switch features on as you n
 For **non-technical feedback** (the players, even children), the **feedback-session**
 skill lets them drive changes in plain words while the technical work happens silently.
 
+
+## 📣 Tell Ludea, and get your game in the catalogue
+
+Your game and the engine improve each other:
+
+- **Automatically**: when your game hits a bug in the engine or its skills, or when your game
+  needs a new engine capability (added as a generic, switchable feature), the **report-upstream**
+  skill sends it to Ludea as an issue on [ludea-ai/game-engine](https://github.com/ludea-ai/game-engine/issues),
+  with the exact change attached. Ludea reviews it, adds it to the engine, and every game gets it
+  at the next update (`sync-engine` from `https://github.com/ludea-ai/game-engine.git`).
+- **`/ludea-feedback`**: your own ideas for the engine ("it would be great if the engine could…").
+- **`/ludea-publish`**: ask for your game to appear on **[ludea.ai](https://ludea.ai/)**. It checks your
+  game is ready (age, description, French + English, icon, no errors) and safe for children (no
+  tracker, ad, external link or data collection), then sends a request. Ludea reviews it — child
+  safety first — and, once accepted, publishes a copy of the reviewed version at `https://ludea.ai/<your-game>/`.
+
+When your Claude Code session can't write on the Ludea repositories, these skills give you a
+link with everything pre-filled: one click on **Submit** and it's sent.
+
 ---
 
 ## 🤖 Skills (Claude Code)
