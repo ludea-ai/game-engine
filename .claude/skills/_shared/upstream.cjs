@@ -11,15 +11,19 @@
 // sync-engine (refuses to overwrite unreported drift).
 //
 //   node .claude/skills/_shared/upstream.cjs context [--offline]  # JSON: repo, game, engine, drift
-//   node .claude/skills/_shared/upstream.cjs drift [--json] [--upstream]  # engine-layer files changed here
+//   node .claude/skills/_shared/upstream.cjs drift [--json] [--upstream] [--unreported]  # engine-layer files changed here
 //                                         # (--upstream: minus what Ludea already has; exit 2 = drift)
-//   node .claude/skills/_shared/upstream.cjs patch [out.diff]      # unified diff of that drift
+//   node .claude/skills/_shared/upstream.cjs patch [out.diff] [--files a,b]  # unified diff of that drift
+//                                         (one issue = one coherent change: limit it to its files)
 //   node .claude/skills/_shared/upstream.cjs write-manifest [--from <ref>]
 //                                         # after a sync / an engine commit upstream; --from <first commit>
 //                                         # bootstraps a game created before the manifest existed
+//   node .claude/skills/_shared/upstream.cjs author                # the creator, from the repo's GitHub data (for meta.author)
 //   node .claude/skills/_shared/upstream.cjs url --repo o/r --title T --body-file F
 //                                                                  # prefilled "new issue" link (fallback)
-//   node .claude/skills/_shared/upstream.cjs log --add kind:key    # remember what was reported (no duplicates)
+//   node .claude/skills/_shared/upstream.cjs log --add kind:key --issue URL [--files a,b]
+//                                         # remember what was reported; with --files, `drift --unreported`
+//                                         # (and sync-engine) stop counting those exact contents
 "use strict";
 const fs = require("fs"), path = require("path"), cp = require("child_process"), os = require("os");
 
@@ -72,7 +76,14 @@ function drift(opts = {}) {
     alreadyUpstream = [...changed, ...added].filter((f) => !keep(f));
     changed.splice(0, changed.length, ...changed.filter(keep)); added.splice(0, added.length, ...added.filter(keep));
   }
-  return { manifest: { version: man.version, from: man.from }, changed, added, removed, alreadyUpstream };
+  let reported = [];
+  if (opts.unreported) { // --unreported: drop files whose CURRENT content was already reported (log --files)
+    const rep = {}; readLog().forEach((e) => Object.assign(rep, e.files || {}));
+    const keep = (f) => rep[f] !== (now[f] || "deleted");
+    reported = [...changed, ...added, ...removed].filter((f) => !keep(f));
+    [changed, added, removed].forEach((a) => a.splice(0, a.length, ...a.filter(keep)));
+  }
+  return { manifest: { version: man.version, from: man.from }, changed, added, removed, alreadyUpstream, reported };
 }
 
 function gameInfo() {
@@ -98,6 +109,7 @@ function context() {
     game: gameInfo(),
     engine: d.manifest,
     drift: { changed: d.changed, added: d.added, removed: d.removed, alreadyUpstream: d.alreadyUpstream, note: d.note },
+    driftUnreported: (() => { const u = drift({ unreported: true }); return [...u.changed, ...u.added, ...u.removed]; })(),
     inbox: { engine: ENGINE_REPO, catalogue: CATALOGUE_REPO },
     reported: readLog(),
   };
@@ -133,10 +145,10 @@ function baseContent(sha) {
   return null;
 }
 
-function patch(out) {
+function patch(out, only) {
   const man = readManifest(); const d = drift({ upstream: true });
   if (!man) throw new Error(d.note);
-  const files = [...d.changed, ...d.added, ...d.removed];
+  const files = [...d.changed, ...d.added, ...d.removed].filter((f) => !only || only.includes(f));
   if (!files.length) { console.error("No engine-layer drift."); return ""; }
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ludea-patch-"));
   let diff = "";
@@ -166,10 +178,40 @@ function writeManifest(fromRef) {
   const same = prev && JSON.stringify(prev.files) === JSON.stringify(files);
   const today = new Date().toISOString().slice(0, 10);
   let version = prev && prev.version;
-  if (!same) { const n = prev && prev.version && prev.version.startsWith(today) ? +prev.version.split(".").pop() + 1 : 1; version = `${today}.${n}`; }
+  if (fromRef) version = `${tryS(`git log -1 --format=%cs ${fromRef}`) || "0000-00-00"}.0`; // bootstrapped: dated by that commit
+  else if (!same) { const n = prev && prev.version && prev.version.startsWith(today) ? +prev.version.split(".").pop() + 1 : 1; version = `${today}.${n}`; }
   const man = { version, from: same ? prev.from : (repoSlug() || "?") + "@" + (tryS(`git rev-parse --short ${fromRef || "HEAD"}`) || "?"), files };
   fs.writeFileSync(path.join(ROOT, MANIFEST), JSON.stringify(man, null, 1) + "\n");
   console.log(same ? `engine-manifest unchanged (${version})` : `engine-manifest → ${version} (${Object.keys(files).length} files)`);
+}
+
+// Author of the game, from what the repo itself says (sessions can only call repo-scoped GitHub
+// endpoints): owner + human contributors (bots / Claude left out), real names taken from their
+// commits. Without gh, falls back to git log (+ GitHub noreply e-mails, which carry the login).
+const BOT = /\[bot\]$|^(claude|github-actions|dependabot|actions-user)$/i;
+function author() {
+  const slug = repoSlug(); const owner = slug ? slug.split("/")[0] : null;
+  const names = {}; // login → name from commits
+  const ghJson = (p) => { const t = tryS(`gh api ${p}`); try { return JSON.parse(t); } catch (e) { return null; } };
+  const repo = slug && ghJson(`repos/${slug}`);
+  const commits = slug && ghJson(`repos/${slug}/commits?per_page=100`);
+  (Array.isArray(commits) ? commits : []).forEach((c) => { if (c.author && c.author.login && !names[c.author.login]) names[c.author.login] = c.commit.author.name; });
+  tryS("git log --format=%an%x09%ae").split("\n").filter(Boolean).forEach((l) => {
+    const [n, e] = l.split("\t"); const m = (e || "").match(/^(?:\d+\+)?([^@]+)@users\.noreply\.github\.com$/);
+    if (m && !names[m[1]]) names[m[1]] = n;
+  });
+  let contrib = ghJson(`repos/${slug}/contributors`);
+  contrib = (Array.isArray(contrib) ? contrib : Object.keys(names).map((login) => ({ login, type: "User" })))
+    .filter((c) => c.type !== "Bot" && !BOT.test(c.login))
+    .map((c) => ({ login: c.login, name: names[c.login] || null, url: `https://github.com/${c.login}` }));
+  const ownerIsOrg = repo && repo.owner && repo.owner.type === "Organization";
+  const main = ownerIsOrg ? (contrib[0] || { login: owner }) : { login: owner };
+  return {
+    name: names[main.login] || main.login, github: main.login, url: `https://github.com/${main.login}`,
+    owner: owner, ownerIsOrg: !!ownerIsOrg,
+    contributors: contrib,
+    note: "proposal from the repo's GitHub data — confirm with the creator before publishing",
+  };
 }
 
 function readLog() { const p = path.join(ROOT, LOG); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : []; }
@@ -197,7 +239,7 @@ const arg = (k) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : un
 try {
   if (cmd === "context") console.log(JSON.stringify(context(), null, 1));
   else if (cmd === "drift") {
-    const d = drift({ upstream: rest.includes("--upstream") });
+    const d = drift({ upstream: rest.includes("--upstream"), unreported: rest.includes("--unreported") });
     if (rest.includes("--json")) console.log(JSON.stringify(d, null, 1));
     else if (!d.manifest) console.log(d.note);
     else { const n = d.changed.length + d.added.length + d.removed.length;
@@ -205,7 +247,8 @@ try {
       d.changed.forEach((f) => console.log("  M " + f)); d.added.forEach((f) => console.log("  A " + f)); d.removed.forEach((f) => console.log("  D " + f));
       process.exitCode = n ? 2 : 0; }
   }
-  else if (cmd === "patch") { const out = rest[0]; const d = patch(out); if (!out) process.stdout.write(d); else console.log(`patch → ${out} (${d.length} bytes)`); }
+  else if (cmd === "patch") { const out = rest[0] && !rest[0].startsWith("--") ? rest[0] : undefined; const fl = arg("--files"); const d = patch(out, fl && fl.split(",")); if (!out) process.stdout.write(d); else console.log(`patch → ${out} (${d.length} bytes)`); }
+  else if (cmd === "author") console.log(JSON.stringify(author(), null, 1));
   else if (cmd === "write-manifest") writeManifest(arg("--from"));
   else if (cmd === "url") {
     const repo = arg("--repo") || ENGINE_REPO, title = arg("--title"), bf = arg("--body-file");
@@ -214,8 +257,12 @@ try {
   }
   else if (cmd === "log") {
     const a = arg("--add");
-    if (a) { const [kind, ...k] = a.split(":"); addLog({ kind, key: k.join(":"), issue: arg("--issue") || null }); }
-    console.log(JSON.stringify(readLog(), null, 1));
+    if (a) {
+      const [kind, ...k] = a.split(":"); const fl = arg("--files"); const files = {};
+      if (fl) fl.split(",").forEach((f) => (files[f] = fs.existsSync(path.join(ROOT, f)) ? blob(f) : "deleted"));
+      addLog({ kind, key: k.join(":"), issue: arg("--issue") || null, ...(fl ? { files } : {}) });
+      console.log(`logged ${kind}: ${k.join(":")}${fl ? ` (${Object.keys(files).length} file(s))` : ""}`);
+    } else console.log(JSON.stringify(readLog(), null, 1));
   }
   else { console.log(fs.readFileSync(__filename, "utf8").split("\n").slice(1, 20).map((l) => l.replace(/^\/\/ ?/, "")).join("\n")); process.exitCode = cmd ? 1 : 0; }
 } catch (e) { console.error("upstream: " + (e.message || e)); process.exitCode = 1; }
