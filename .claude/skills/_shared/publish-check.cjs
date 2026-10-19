@@ -182,7 +182,13 @@ const FIRST_NAMES = ("Emma Léa Louise Alice Chloé Inès Jeanne Lina Mila Anna 
   "Olivia Amelia Isla Ava Sophia Grace Lily Freya Emily Ivy Ella Isabella Poppy Evie Harper Sienna Willow Daisy Matilda " +
   "Oliver George Noah Arthur Muhammad Leo Harry Oscar Archie Henry Theodore Freddie Jack Charlie Thomas Jacob Alfie Finley James William").split(" ");
 const namesFound = [...new Set(FIRST_NAMES.filter((n) => new RegExp(`(^|[^\\p{L}])${n}([^\\p{L}]|$)`, "u").test(words)))]
-  .filter((n) => !(info.authorName || "").includes(n));
+  .filter((n) => ![info.authorName, M.creditLine, ...(((M.author || {}).coAuthors) || []).map((c) => c && c.name)].join(" ").includes(n));
+// a child co-author is credited by a first name or a nickname only (never a surname, age, school, town)
+for (const c of (((M.author || {}).coAuthors) || [])) {
+  const nm = String((c && c.name) || "").trim();
+  if (!nm) continue;
+  if (/\s\p{Lu}/u.test(nm) || /\d/.test(nm) || nm.split(/\s+/).length > 2) B(`co-author "${nm}": a first name or a nickname only (no surname, age, school or town)`);
+}
 info.firstNames = namesFound;
 if (namesFound.length) W(`first names in the game's texts: ${namesFound.slice(0, 12).join(", ")} — make sure none is a real child's name (a pet name is fine)`);
 // Copied content: well-known characters / brands (not ours to use; parents and rights holders notice).

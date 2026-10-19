@@ -258,5 +258,18 @@ To turn it off, tell your session "don't report to Ludea" (it notes it in your `
 
 **Publishing in the catalogue.** `/publish` asks for your explicit consent: you allow Ludea to host,
 show and update a reviewed copy of your game on ludea.ai, credited to you, and you can ask for its
-removal at any time. Your repository stays yours.
+removal at any time. Your repository stays yours. A child who made the game with you can be credited
+by a first name or a nickname only, with your agreement and theirs, removable at any time.
+
+**Your game's legal notice and « Made with Ludea ».** Every game shows, at the bottom of its home
+screen, « Made with Ludea » and a legal notice generated from `meta.author`: on your own site **you**
+are the publisher (a personal, non-professional site; contact = your GitHub profile; host = GitHub).
+Ludea is not the publisher of your game and has not reviewed it — the copy served on ludea.ai, after
+review, shows Ludea's own legal pages instead.
+
+**Using the name « Ludea ».** You may say your game is « made with Ludea » / « fait avec Ludea » and
+link to https://ludea.ai/. You may not suggest that Ludea approved, reviewed or publishes a game it
+has not published, use Ludea's logo or the « Lu » character as your own, or name your game or site
+« Ludea ». Ludea may ask you to remove the mention from a game that harms children or the name.
+To report a game that uses the name: https://ludea.ai/contact/.
 
