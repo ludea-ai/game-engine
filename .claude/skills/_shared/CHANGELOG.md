@@ -1,7 +1,7 @@
 # Ludea engine — release notes
 
 What each engine version brings to a game, in plain words (newest first). Written by
-the engine agent (`maintainers/triage-upstream.md` in the template) for every batch it merges; shown to creators by `update-check.cjs` (at the
+Ludea's engine agent (procedure in `ludea-ai/agents`) for every batch it merges; shown to creators by `update-check.cjs` (at the
 start of a session) and by **update** (which also suggests which new capabilities fit
 their game). Two lists per version:
 - `### New — you can switch it on`: capabilities a game must opt into in its config. One line each:

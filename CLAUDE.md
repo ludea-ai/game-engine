@@ -104,8 +104,8 @@ game's engine bugs + engine changes it already made → issues on `ludea-ai/game
 (`/publish`: readiness + child-safety check → publication request on the catalogue repo),
 **update** (creators: update their game to the latest template engine; a SessionStart hook,
 `_shared/update-check.cjs`, tells them when one exists — what's new in `_shared/CHANGELOG.md`),
-the engine agent (maintainers only, `maintainers/triage-upstream.md` in the template — NOT a skill, so it
-never lands in a game: qualify the inbox → one PR on `game-engine`, tried on Nebula, the owner says OK →
+the engine agent (Ludea only, procedure in `ludea-ai/agents` — NOT in the engine, so it never lands
+in a game: qualify the inbox → one PR on `game-engine`, tried on Nebula, the owner says OK →
 propagate to Nebula + catalogue games). Engine fingerprint: `_shared/engine-manifest.json`
 (`upstream.cjs`). Shared tooling in `_shared/` (incl. `separation-audit.cjs`, `prune-assets.cjs`,
 `sync-engine.sh`, `art-check.cjs`, `icon-kit.cjs`, `contact-sheet.py`, `probes/tour.cjs`, `probes/smoke.cjs`
@@ -215,10 +215,9 @@ like a game made by a studio — not a prototype. Concretely:
 - **The engine lives HERE** (owner decision 2026-10-19): issues, the engine agent's batch PRs, fixes and
   history are on this repo. Each batch is tried on the **Nebula test bench** (a local clone synced from
   the PR branch, never pushed) before the owner's OK; after the merge, Nebula and every Ludea game get
-  it with **sync-engine** (`maintainers/triage-upstream.md`). Tests: FULL on Nebula + the starter
+  it with **sync-engine** (engine agent, `ludea-ai/agents`). Tests: FULL on Nebula + the starter
   (port 8103) before the OK; after it, the QUICK check (`probes/smoke.cjs`) on every game and the full
   tour only on the games that use a touched system (`game-systems.cjs --uses …`).
-- `maintainers/` = Ludea-only procedures (not engine layer, not synced, not skills); new-game deletes it.
 - README = the template's user guide ("Create a new game" from github.com/ludea-ai/game-engine).
 
 ## 11. Ludea organisation (restructured Oct 2026)
@@ -233,7 +232,9 @@ Layout in https://github.com/ludea-ai (every repo is served at `https://ludea.ai
   system at `/design/`, games catalogue, all Ludea brand art (`tools/art/brand.cjs`). When a game
   is added or gains a mode, update its catalogue card there.
 - Games: `dr-smile`, `gta7`, `my-little-stable`.
-- Maintainers' notes (scope rules, agents): `maintainers/README.md` in the template.
+- **`agents`** — Ludea's agent system (engine agent, catalogue agent, watchdog): definitions, procedures,
+  heartbeats, install (`/install-agents`) and runbook (`DEPANNAGE.md`). The source of truth of what
+  runs on claude.ai; Ludea-only, never copied into games. Scope rules (Encrine) in its README.
 - The engine layer (engine.js, engine.css, ENGINE.md, vendor/, .claude/skills) is identical in every
   repo. Old `jlrigau.github.io/…` addresses are gone (repos transferred); saves were not migrated
   (owner: fine). Later (not now): load the engine from one place instead of copying it.

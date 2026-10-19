@@ -153,7 +153,7 @@ const images = [];
 (function walk(rel) {
   const abs = path.join(DIR, rel);
   for (const f of fs.existsSync(abs) ? fs.readdirSync(abs) : []) {
-    if (!rel && /^(\.git|node_modules|\.claude|tools|vendor|maintainers|upstream)$/.test(f)) continue;
+    if (!rel && /^(\.git|node_modules|\.claude|tools|vendor|upstream)$/.test(f)) continue;
     const r = rel ? rel + "/" + f : f;
     if (fs.statSync(path.join(DIR, r)).isDirectory()) walk(r); else if (IMG.test(f)) images.push(r);
   }

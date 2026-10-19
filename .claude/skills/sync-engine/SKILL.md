@@ -57,8 +57,8 @@ it changed locally that Ludea doesn't have. The script **refuses to sync over su
 `upstream.cjs write-manifest` before committing any engine-layer change.
 Games outside the Ludea organisation update from the template:
 `bash .claude/skills/_shared/sync-engine.sh https://github.com/ludea-ai/game-engine.git main`.
-Inside Ludea, merged engine batches are propagated by the engine agent (`maintainers/triage-upstream.md`
-in the template, phase A — not a skill, so it never lands in a game).
+Inside Ludea, merged engine batches are propagated by the engine agent (procedure in
+`ludea-ai/agents`, phase A — not in the engine, so it never lands in a game).
 
 ## 3. Routine harvest (after bootstrap)
 ```bash

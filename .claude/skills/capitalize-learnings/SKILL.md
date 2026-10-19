@@ -59,7 +59,7 @@ the config). Exit 0 = clean.
    learning that belongs to the engine layer — an engine/skill/tooling change made here, or a
    failure of a skill/tool/doc you hit — goes back to Ludea with **report-upstream** (automatic,
    silent, de-duplicated). In the template you ARE upstream: the change ships in the engine
-agent's batch PR (`maintainers/triage-upstream.md`), tried on Nebula first.
+agent's batch PR (procedure in `ludea-ai/agents`), tried on Nebula first.
 5. **Engine version**: `node .claude/skills/_shared/update-check.cjs` — if a newer Ludea engine or a
    catalogue update is pending, mention it to the creator in one sentence (update / publish).
 6. **Ship**: hand off to **release-deploy** (bumps `vN`, commits, deploys, verifies).
