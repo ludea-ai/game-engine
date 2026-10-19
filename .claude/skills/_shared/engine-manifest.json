@@ -1,6 +1,6 @@
 {
  "version": "2026-10-19.3",
- "from": "ludea-ai/game-engine@7ec239c",
+ "from": "ludea-ai/game-engine@eadd835",
  "files": {
   "engine.js": "196fb82ffd2288074d058c1bca1d4bb49eccc919",
   "engine.css": "b2c1e67587bb236949af2a06aef01256effd0646",
@@ -38,7 +38,7 @@
   ".claude/skills/_shared/serve.sh": "136b278a594c4a90d2541c352e4a6b3903025118",
   ".claude/skills/_shared/share-preview.cjs": "8666003f3d7ba363174cef55de3cccc990ab0195",
   ".claude/skills/_shared/svg-kit.cjs": "397687b300adefbf2af417110f95faf67add5c87",
-  ".claude/skills/_shared/sync-engine.sh": "de9557808431995e9aa24505807d47ba72b3eff3",
+  ".claude/skills/_shared/sync-engine.sh": "a81c790ca48032367ccc0de642a37652680fc30a",
   ".claude/skills/_shared/update-check.cjs": "8d6bf3a89b39246e9c534d2005531e87ecbaf8ab",
   ".claude/skills/_shared/upstream.cjs": "623ba7f4968712dabf41eb70aa41e491df8244bd",
   ".claude/skills/add-character/SKILL.md": "9b1c27a3289817a1a60ff90320b93f9f6e4d8b97",

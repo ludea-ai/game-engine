@@ -19,10 +19,11 @@
 #   bash .claude/skills/_shared/sync-engine.sh <game-git-url|remote-name> [ref] [--force]
 #   (a game outside the Ludea organisation updates from https://github.com/ludea-ai/game-engine.git)
 set -euo pipefail
+ORIG_ARGS=("$@")
 FORCE=""; ARGS=(); for a in "$@"; do [ "$a" = "--force" ] && FORCE=1 || ARGS+=("$a"); done; set -- "${ARGS[@]}"
 SRC="${1:?usage: sync-engine.sh <game-git-url|remote-name> [ref=main]}"
 REF="${2:-main}"
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"; cd "$ROOT"
+ROOT="${SYNC_ENGINE_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"; cd "$ROOT"
 
 # Safety: refuse on a dirty tree so the review diff is unambiguous.
 if [ -n "$(git status --porcelain)" ]; then
@@ -49,6 +50,18 @@ trap cleanup EXIT
 
 echo "Fetching $REMOTE ($REF)…"
 git fetch --depth=1 "$REMOTE" "$REF"
+
+# Run the SOURCE's version of this script when it differs from ours, so a fix to the sync itself
+# applies on the very update that brings it (not one update later).
+SELF=.claude/skills/_shared/sync-engine.sh
+if [ -z "${SYNC_ENGINE_REEXEC:-}" ] && git cat-file -e "$REMOTE/$REF:$SELF" 2>/dev/null; then
+  NEW="$(mktemp)"; git show "$REMOTE/$REF:$SELF" >"$NEW"
+  if ! cmp -s "$NEW" "$ROOT/$SELF"; then
+    echo "Using the source's newer sync-engine.sh…"; cleanup
+    SYNC_ENGINE_REEXEC=1 SYNC_ENGINE_ROOT="$ROOT" exec bash "$NEW" "${ORIG_ARGS[@]}"
+  fi
+  rm -f "$NEW"
+fi
 
 PATHS=(engine.js engine.css ENGINE.md .claude/skills)
 # Files this repo got from Ludea (read BEFORE the checkout replaces the manifest).
