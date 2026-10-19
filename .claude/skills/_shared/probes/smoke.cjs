@@ -25,10 +25,14 @@ module.exports = async (page) => {
   const start = await page.evaluate(() => [player.x, player.y]);
   const target = await page.evaluate(() => {
     const W = innerWidth, H = innerHeight, p = worldToScreen(player.x, player.y);
-    for (const [dx, dy] of [[90, 0], [-90, 0], [0, 90], [0, -90], [70, 70], [-70, -70]]) {
+    // free ground: on the canvas, inside the play area, away from every creature (a tap on one
+    // would start an action — tapAction — instead of a walk)
+    const z = sc.cameras.main.zoom;
+    const nearCreature = (x, y) => state.creatures.some((c) => { const q = worldToScreen(c.x, c.y); return Math.hypot(q.x - x, q.y - y) < 110 * z; });
+    for (const [dx, dy] of [[90, 0], [-90, 0], [0, 90], [0, -90], [70, 70], [-70, -70], [70, -70], [-70, 70], [140, 0], [-140, 0]]) {
       const x = p.x + dx, y = p.y + dy;
       const el = document.elementFromPoint(x, y);
-      if (x > 20 && x < W - 20 && y > 120 && y < H - 200 && el && el.tagName === "CANVAS") return { x, y };
+      if (x > 20 && x < W - 20 && y > 120 && y < H - 200 && el && el.tagName === "CANVAS" && !nearCreature(x, y)) return { x, y };
     }
     return null;
   });
@@ -39,6 +43,10 @@ module.exports = async (page) => {
     r.moved = Math.round(Math.hypot(end[0] - start[0], end[1] - start[1]));
     check(r.moved > 8, "tapping the ground did not move the player");
   } else r.moved = "n/a (no free ground on screen)";
+
+  // Leave any action the tap may still have started (close-up, panel) before the help check.
+  await page.evaluate(() => { if (closeupOpen) closeCloseup(); });
+  await wait(page, 300);
 
   // The help modal opens and closes (DOM side of the engine).
   const help = await page.$("#btn-help");
