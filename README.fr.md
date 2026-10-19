@@ -107,5 +107,19 @@ personnelles, de prénoms d'enfants ni vos messages privés. Pour le désactiver
 
 **Publication au catalogue.** `/publish` vous demande votre accord explicite : vous autorisez Ludea à
 héberger, montrer et mettre à jour une copie relue de votre jeu sur ludea.ai, avec votre nom, et vous
-pouvez en demander le retrait à tout moment. Votre dépôt reste le vôtre.
+pouvez en demander le retrait à tout moment. Votre dépôt reste le vôtre. Un enfant qui a créé le jeu
+avec vous peut être crédité par un prénom ou un surnom seulement, avec votre accord et le sien,
+retirable à tout moment.
+
+**Mentions légales de votre jeu et « Fait avec Ludea ».** Chaque jeu affiche en bas de son écran
+d'accueil « Fait avec Ludea » et des mentions légales générées à partir de `meta.author` : sur votre
+propre site, c'est **vous** l'éditeur (site personnel non professionnel ; contact = votre profil
+GitHub ; hébergeur = GitHub). Ludea n'est pas l'éditeur de votre jeu et ne l'a pas vérifié — la copie
+servie sur ludea.ai, après relecture, affiche à la place les pages légales de Ludea.
+
+**Utiliser le nom « Ludea ».** Vous pouvez dire que votre jeu est « fait avec Ludea » et mettre un lien
+vers https://ludea.ai/. Vous ne pouvez pas laisser croire que Ludea a approuvé, relu ou publie un jeu
+qu'il n'a pas publié, utiliser le logo de Ludea ou le personnage « Lu » comme les vôtres, ni appeler
+votre jeu ou votre site « Ludea ». Ludea peut vous demander de retirer la mention d'un jeu qui nuit aux
+enfants ou au nom. Pour signaler un jeu qui utilise le nom : https://ludea.ai/contact/.
 
