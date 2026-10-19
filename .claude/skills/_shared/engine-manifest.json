@@ -1,6 +1,6 @@
 {
  "version": "2026-10-19.3",
- "from": "ludea-ai/game-engine@eadd835",
+ "from": "ludea-ai/game-engine@4b01682",
  "files": {
   "engine.js": "196fb82ffd2288074d058c1bca1d4bb49eccc919",
   "engine.css": "b2c1e67587bb236949af2a06aef01256effd0646",
@@ -26,7 +26,7 @@
   ".claude/skills/_shared/probes/racehud.cjs": "0db0154a8ca182c51ac8368f57c5e89b3492c569",
   ".claude/skills/_shared/probes/racerivals.cjs": "6cd325e7f902a5e1a978d098a1e5bfd43d2b9517",
   ".claude/skills/_shared/probes/reveal.cjs": "62c549908dece146f19bb355cdfbad45d88f8cc1",
-  ".claude/skills/_shared/probes/smoke.cjs": "b5fd6c06b1a1e65a2f80ef7513015985979c12cb",
+  ".claude/skills/_shared/probes/smoke.cjs": "f5bfe0e18b3e689132a25083362bef13da433691",
   ".claude/skills/_shared/probes/stress.cjs": "235c55beebcff83e9d113bbb4d74342ef1844c91",
   ".claude/skills/_shared/probes/systems.cjs": "0366076a3f56c460a2b8bae943d25ac60f6ce2bd",
   ".claude/skills/_shared/probes/tour.cjs": "192d65199f329d79d45a57eb7822db945a32552e",
