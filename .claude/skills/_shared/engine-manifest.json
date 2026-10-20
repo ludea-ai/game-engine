@@ -1,6 +1,6 @@
 {
- "version": "2026-10-20.1",
- "from": "ludea-ai/game-engine@69d8cc9",
+ "version": "2026-10-20.2",
+ "from": "ludea-ai/game-engine@ed5bfba",
  "files": {
   "engine.js": "6908bb9c42305e807d954341935edfc51d965b9b",
   "engine.css": "33208c994df2802278204b2620c9839d811df34d",
@@ -26,6 +26,7 @@
   ".claude/skills/_shared/probes/jitter.cjs": "5b56be323c6ff0ad0e263c91057d0adb40aaae0a",
   ".claude/skills/_shared/probes/legal.cjs": "2c9b7c45bb09ecd170ef7842e8b926b14559887e",
   ".claude/skills/_shared/probes/lib.cjs": "fe7bc991aafebd801a9a18106d9068cfac5c02bc",
+  ".claude/skills/_shared/probes/playername.cjs": "5e3e95c6f88c5803df9efbb27a33f5e52bfcff33",
   ".claude/skills/_shared/probes/racechase.cjs": "40bf96beffa63cf1b63b0926832a56c31932e1ca",
   ".claude/skills/_shared/probes/racehud.cjs": "0db0154a8ca182c51ac8368f57c5e89b3492c569",
   ".claude/skills/_shared/probes/racerivals.cjs": "6cd325e7f902a5e1a978d098a1e5bfd43d2b9517",
