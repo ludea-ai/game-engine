@@ -1,5 +1,5 @@
 {
- "version": "2026-10-20.2",
+ "version": "2026-10-20.1",
  "from": "ludea-ai/game-engine@ed5bfba",
  "files": {
   "engine.js": "6908bb9c42305e807d954341935edfc51d965b9b",
