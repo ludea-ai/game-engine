@@ -1,11 +1,11 @@
 {
- "version": "2026-10-21.1",
- "from": "ludea-ai/game-engine@1c446bc",
+ "version": "2026-10-23.1",
+ "from": "ludea-ai/game-engine@5293d92",
  "files": {
   "engine.js": "6908bb9c42305e807d954341935edfc51d965b9b",
   "engine.css": "33208c994df2802278204b2620c9839d811df34d",
   "ENGINE.md": "ba0c4a707490fec5b3176460cca993bde226d409",
-  ".claude/skills/_shared/CHANGELOG.md": "8528fca812a152747c6e1e2e9ba3270b2c44ef24",
+  ".claude/skills/_shared/CHANGELOG.md": "a04707c6ca3d43b12da97f27133caeeb76ff9a8a",
   ".claude/skills/_shared/README.md": "88948cea63dfd923ec18a02d6ea8f1f0df09cd98",
   ".claude/skills/_shared/art-check.cjs": "f23698b536a5612186666f15eecec64e1af5ea2a",
   ".claude/skills/_shared/bump-version.mjs": "499b8b0f0e94e04a7b34c978af23c6f78e99baca",
@@ -34,7 +34,7 @@
   ".claude/skills/_shared/probes/smoke.cjs": "f5bfe0e18b3e689132a25083362bef13da433691",
   ".claude/skills/_shared/probes/stress.cjs": "235c55beebcff83e9d113bbb4d74342ef1844c91",
   ".claude/skills/_shared/probes/systems.cjs": "0366076a3f56c460a2b8bae943d25ac60f6ce2bd",
-  ".claude/skills/_shared/probes/tour.cjs": "638ec0489962cd115336de47f447c2c1fb1e388c",
+  ".claude/skills/_shared/probes/tour.cjs": "bbacb530c9d6a9d88d014508059dd3073c551733",
   ".claude/skills/_shared/probes/watchdog.cjs": "3d0d0ad9863a2755ef5eeca7a4b50e6fcd668f37",
   ".claude/skills/_shared/prune-assets.cjs": "4e91efe4b0de8882bbee63d7fdf23c0f9d508ce8",
   ".claude/skills/_shared/public-url.cjs": "c7fa138bce48857feea36d12da31bba84e223cc0",

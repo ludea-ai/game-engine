@@ -62,17 +62,26 @@ module.exports = async (page) => {
       // the world must still respond to taps after the close-up (iOS freeze regression)
       const b2 = await page.evaluate(() => [player.x, player.y]);
       // a free floor point away from every creature (tapping a creature may start an action)
-      const tgt = await page.evaluate(() => {
-        for (let k = 0; k < 40; k++) {
-          const a = k * 0.7, d = 110 + k * 6, x = player.x + Math.cos(a) * d, y = player.y + Math.sin(a) * d;
-          const p = worldToScreen(x, y);
-          if (p.y < 150 || p.y > innerHeight - 220 || p.x < 30 || p.x > innerWidth - 30) continue;
-          if (!freeAt(x, y) || state.creatures.some((c) => Math.hypot(c.x - x, c.y - y) < 130)) continue;
-          const el = document.elementFromPoint(p.x, p.y); if (!el || el.tagName !== "CANVAS") continue;   // not under the panel/HUD
-          return p;
-        }
-        return worldToScreen(player.x, player.y + 120);
-      });
+      // Only points where the world itself is on top count: the creature card that stays open after
+      // the close-up covers the bottom of a short screen, and a tap on it is not a tap on the world
+      // (the old fallback point landed under it — game-engine#22). Re-tried while a toast passes.
+      let tgt = null;
+      for (let t = 0; t < 6 && !tgt; t++) {
+        tgt = await page.evaluate(() => {
+          for (let k = 0; k < 120; k++) {
+            const a = k * 0.7, d = 80 + k * 5, x = player.x + Math.cos(a) * d, y = player.y + Math.sin(a) * d;
+            const p = worldToScreen(x, y);
+            if (p.y < 120 || p.y > innerHeight - 40 || p.x < 20 || p.x > innerWidth - 20) continue;
+            if (!freeAt(x, y) || state.creatures.some((c) => Math.hypot(c.x - x, c.y - y) < 130)) continue;
+            const el = document.elementFromPoint(p.x, p.y); if (!el || el.tagName !== "CANVAS") continue;   // not under the card/HUD
+            return p;
+          }
+          return null;
+        });
+        if (!tgt) await wait(page, 500);
+      }
+      check(!!tgt, "no free floor point visible to tap after the close-up (card/HUD cover the world)");
+      if (!tgt) tgt = await page.evaluate(() => worldToScreen(player.x, player.y + 120));
       // Headless WebKit can drop to 2-3 fps here (software rendering): judge the TAP, not the walking
       // speed — the world is responsive if the tap was taken (a walk target / path is set) or the
       // player moved. A toast can also slide over the point between the pick and the tap: wait for
