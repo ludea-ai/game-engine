@@ -8,6 +8,11 @@ their game). Two lists per version:
   **what it lets you do** — `config key` — the kind of game it suits.
 - `### Better — automatic`: fixes and improvements every game gets just by updating.
 
+## 2026-10-23.1
+### Better — automatic
+- **The Safari check after the close-up no longer taps the creature card by mistake**: on a short
+  screen it now only taps where the world is visible.
+
 ## 2026-10-21.1
 ### Better — automatic
 - **Claude always follows the latest version of each skill**: a request like « mets à jour le moteur »
