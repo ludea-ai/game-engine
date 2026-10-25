@@ -8,6 +8,11 @@ their game). Two lists per version:
   **what it lets you do** — `config key` — the kind of game it suits.
 - `### Better — automatic`: fixes and improvements every game gets just by updating.
 
+## 2026-10-25.1
+### Better — automatic
+- **Updating the engine no longer stops half-way** when the new version changes none of the
+  skills (the update looked failed although the files were copied).
+
 ## 2026-10-23.1
 ### Better — automatic
 - **The Safari check after the close-up no longer taps the creature card by mistake**: on a short

@@ -1,11 +1,11 @@
 {
- "version": "2026-10-23.1",
- "from": "ludea-ai/game-engine@5293d92",
+ "version": "2026-10-25.1",
+ "from": "ludea-ai/game-engine@4ef2f8b",
  "files": {
   "engine.js": "6908bb9c42305e807d954341935edfc51d965b9b",
   "engine.css": "33208c994df2802278204b2620c9839d811df34d",
   "ENGINE.md": "ba0c4a707490fec5b3176460cca993bde226d409",
-  ".claude/skills/_shared/CHANGELOG.md": "a04707c6ca3d43b12da97f27133caeeb76ff9a8a",
+  ".claude/skills/_shared/CHANGELOG.md": "d70fa88ef9130b24ea8f3511c72223ad61bd87a0",
   ".claude/skills/_shared/README.md": "88948cea63dfd923ec18a02d6ea8f1f0df09cd98",
   ".claude/skills/_shared/art-check.cjs": "f23698b536a5612186666f15eecec64e1af5ea2a",
   ".claude/skills/_shared/bump-version.mjs": "499b8b0f0e94e04a7b34c978af23c6f78e99baca",
@@ -44,7 +44,7 @@
   ".claude/skills/_shared/serve.sh": "136b278a594c4a90d2541c352e4a6b3903025118",
   ".claude/skills/_shared/share-preview.cjs": "58d7494f5b965566f4f9457f6a4e97dcc3cdcd16",
   ".claude/skills/_shared/svg-kit.cjs": "397687b300adefbf2af417110f95faf67add5c87",
-  ".claude/skills/_shared/sync-engine.sh": "02d46f38074a599239249d2d1c1d720cfc4529ac",
+  ".claude/skills/_shared/sync-engine.sh": "b0691d2fb38a1113ab20452c8c88148acb88c6ed",
   ".claude/skills/_shared/update-check.cjs": "8d6bf3a89b39246e9c534d2005531e87ecbaf8ab",
   ".claude/skills/_shared/upstream.cjs": "f49b7a6f02ad1220fe30e2a9f7d2552db53cdf28",
   ".claude/skills/add-character/SKILL.md": "9b1c27a3289817a1a60ff90320b93f9f6e4d8b97",
