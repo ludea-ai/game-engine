@@ -89,7 +89,7 @@ rm -f "$FROM_LUDEA" "$IN_SRC"
 
 # The skills this sync changed: a skill read earlier in the session is now out of date
 # (game-engine#23) — whoever runs the sync must invoke them again, not replay them from memory.
-CHANGED_SKILLS="$(git diff --cached --name-only -- .claude/skills | grep '/SKILL\.md$' | sed -E 's#^\.claude/skills/([^/]+)/SKILL\.md$#\1#' | sort -u)"
+CHANGED_SKILLS="$(git diff --cached --name-only -- .claude/skills | grep '/SKILL\.md$' | sed -E 's#^\.claude/skills/([^/]+)/SKILL\.md$#\1#' | sort -u || true)"  # none changed: grep exits 1 (pipefail)
 if [ -n "$CHANGED_SKILLS" ]; then
   echo; echo "== skills changed by this sync — invoke them again (Skill tool), never from memory =="
   echo "$CHANGED_SKILLS" | sed 's/^/  - /'
